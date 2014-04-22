@@ -1,5 +1,8 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStream;
 
 
@@ -10,7 +13,7 @@ use org\bovigo\vfs\vfsStream;
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
+class TransformistTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -47,7 +50,7 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 		$this->vfs->addChild( vfsStream::newDirectory( 'writable' ));
 		$this->vfs->addChild( vfsStream::newDirectory( 'unwritable', 0000 ));
 
-		$this->Transformist = new Transformist_Transformist( );
+		$this->Transformist = new Transformist( );
 	}
 
 
@@ -82,9 +85,9 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 
 	public function testCanConvert( ) {
 
-		$Document = new Transformist_Document(
-			new Transformist_FileInfo( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
-			new Transformist_FileInfo( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
+		$Document = new Document(
+			new FileInfo( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
+			new FileInfo( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
 		);
 
 		$this->assertTrue( $this->Transformist->canConvert( $Document ));
@@ -98,9 +101,9 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 
 	public function testCantConvert( ) {
 
-		$Document = new Transformist_Document(
-			new Transformist_FileInfo( 'foo', 'text/plain' ),
-			new Transformist_FileInfo( 'bar', 'unknown' )
+		$Document = new Document(
+			new FileInfo( 'foo', 'text/plain' ),
+			new FileInfo( 'bar', 'unknown' )
 		);
 
 		$this->assertFalse( $this->Transformist->canConvert( $Document ));
@@ -114,9 +117,9 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 
 	public function testConvert( ) {
 
-		$Document = new Transformist_Document(
-			new Transformist_FileInfo( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
-			new Transformist_FileInfo( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
+		$Document = new Document(
+			new FileInfo( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
+			new FileInfo( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
 		);
 
 		$this->Transformist->addDocument( $Document );
@@ -131,9 +134,9 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 
 	public function testConvertFromUnreadableFile( ) {
 
-		$Document = new Transformist_Document(
-			new Transformist_FileInfo( vfsStream::url( 'root/unreadable.txt' )),
-			new Transformist_FileInfo( vfsStream::url( 'root/writable/foo.bar' ))
+		$Document = new Document(
+			new FileInfo( vfsStream::url( 'root/unreadable.txt' )),
+			new FileInfo( vfsStream::url( 'root/writable/foo.bar' ))
 		);
 
 		$this->Transformist->addDocument( $Document );
@@ -148,9 +151,9 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 
 	public function testConvertToUnwritableDir( ) {
 
-		$Document = new Transformist_Document(
-			new Transformist_FileInfo( vfsStream::url( 'root/readable.txt' )),
-			new Transformist_FileInfo( vfsStream::url( 'root/unwritable/converted' ))
+		$Document = new Document(
+			new FileInfo( vfsStream::url( 'root/readable.txt' )),
+			new FileInfo( vfsStream::url( 'root/unwritable/converted' ))
 		);
 
 		$this->Transformist->addDocument( $Document );

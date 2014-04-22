@@ -1,12 +1,18 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
+
+
+
 /**
  *	Test case for ConverterCollection.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_ConverterCollectionTest extends PHPUnit_Framework_TestCase {
+class ConverterCollectionTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -25,7 +31,7 @@ class Transformist_ConverterCollectionTest extends PHPUnit_Framework_TestCase {
 		Runkit::requiredBy( $this );
 		Runkit::redefineConstant( 'TRANSFORMIST_ROOT', TRANSFORMIST_TEST_RESOURCE );
 
-		$this->ConverterCollection = new Transformist_ConverterCollection( );
+		$this->ConverterCollection = new ConverterCollection( );
 	}
 
 
@@ -56,7 +62,7 @@ class Transformist_ConverterCollectionTest extends PHPUnit_Framework_TestCase {
 
 		$Converter = $this->ConverterCollection->get( 'Transformist_Converter_Fake_Html' );
 
-		$this->assertTrue( $Converter instanceof Transformist_Converter_Fake_Html );
+		$this->assertTrue( $Converter instanceof Transformist\Converter\Fake\Html );
 	}
 
 

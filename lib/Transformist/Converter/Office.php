@@ -1,5 +1,14 @@
 <?php
 
+namespace Transformist\Converter;
+
+use Transformist\Converter;
+use Transformist\Command;
+use Transformist\Document;
+use Transformist\Registry;
+
+
+
 /**
  *	Converts documents through the OpenOffice/LibreOffice conversion system.
  *	This converter relies on the OpenOffice/LibreOffice suite, which must be
@@ -9,7 +18,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Converter_Office extends Transformist_Converter {
+class Office extends Converter {
 
 	/**
 	 *	Tests if the soffice command is available on the system.
@@ -19,7 +28,7 @@ class Transformist_Converter_Office extends Transformist_Converter {
 
 	public static function isRunnable( ) {
 
-		$Unoconv = new Transformist_Command( 'unoconv' );
+		$Unoconv = new Command( 'unoconv' );
 
 		if ( !$Unoconv->exists( )) {
 			return 'The unoconv command is not available.';
@@ -69,10 +78,10 @@ class Transformist_Converter_Office extends Transformist_Converter {
 	/**
 	 *	Converts the given document.
 	 *
-	 *	@param Transformist_Document $Document Document to convert.
+	 *	@param Document $Document Document to convert.
 	 */
 
-	public function convert( Transformist_Document $Document ) {
+	public function convert( Document $Document ) {
 
 		$Input =& $Document->input( );
 		$Output =& $Document->output( );
@@ -108,7 +117,7 @@ class Transformist_Converter_Office extends Transformist_Converter {
 			$arguments['-e'] = 'SelectPdfVersion=1';
 		}
 
-		$format = Transformist_Registry::extension( $Output->type( ));
+		$format = Registry::extension( $Output->type( ));
 
 		if ( $format ) {
 			$arguments['-f'] = $format;
@@ -119,7 +128,7 @@ class Transformist_Converter_Office extends Transformist_Converter {
 			$inputPath
 		);
 
-		$Unoconv = new Transformist_Command( 'unoconv' );
+		$Unoconv = new Command( 'unoconv' );
 		$R = $Unoconv->execute( $arguments );
 
 		// We don't need the symlink anymore.

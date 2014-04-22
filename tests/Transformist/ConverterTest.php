@@ -1,5 +1,9 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
+
 define( 'CONVERTER_INPUT_TYPE', 'application/xml' );
 define( 'CONVERTER_OUTPUT_TYPE', 'application/pdf' );
 
@@ -11,7 +15,7 @@ define( 'CONVERTER_OUTPUT_TYPE', 'application/pdf' );
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_ConverterTest extends PHPUnit_Framework_TestCase {
+class ConverterTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -27,7 +31,7 @@ class Transformist_ConverterTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp( ) {
 
-		$this->Converter = new Transformist_ConcreteConverter( );
+		$this->Converter = new ConcreteConverter( );
 	}
 
 
@@ -59,7 +63,7 @@ class Transformist_ConverterTest extends PHPUnit_Framework_TestCase {
  *
  */
 
-class Transformist_ConcreteConverter extends Transformist_Converter {
+class ConcreteConverter extends Converter {
 
 	/**
 	 *	Returns the type of files that the converter accepts.
@@ -91,6 +95,6 @@ class Transformist_ConcreteConverter extends Transformist_Converter {
 	 *
 	 */
 
-	public function convert( Transformist_Document $Document ) { }
+	public function convert( Document $Document ) { }
 
 }

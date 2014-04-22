@@ -1,5 +1,9 @@
 <?php
 
+namespace Transformist;
+
+
+
 /**
  *	Represents a package.
  *
@@ -7,7 +11,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Package {
+class Package {
 
 	/**
 	 *	Root path to the package.

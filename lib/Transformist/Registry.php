@@ -1,5 +1,9 @@
 <?php
 
+namespace Transformist;
+
+
+
 /**
  *	Regitry of files formats.
  *
@@ -7,7 +11,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Registry {
+class Registry {
 
 	/**
 	 *	Maps MIME types to extensions.

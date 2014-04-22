@@ -1,5 +1,11 @@
 <?php
 
+namespace Transformist;
+
+use Transformist\CommandResult;
+
+
+
 /**
  *	A simplistic interface to execute commands.
  *
@@ -7,7 +13,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Command {
+class Command {
 
 	/**
 	 *	Command name.
@@ -55,7 +61,7 @@ class Transformist_Command {
 
 	public function exists( ) {
 
-		$Command = new Transformist_Command( 'command' );
+		$Command = new Command( 'command' );
 		$Result = $Command->execute( array( '-v', $this->_name ));
 
 		return $Result->isSuccess( );
@@ -67,7 +73,7 @@ class Transformist_Command {
 	 *	Executes the command with the given options.
 	 *
 	 *	@param array $options Command options.
-	 *	@return Transformist_CommandResult Informations about the executed command.
+	 *	@return CommandResult Informations about the executed command.
 	 */
 
 	public function execute( array $options = array( )) {
@@ -86,6 +92,6 @@ class Transformist_Command {
 
 		@exec( $command . ' 2>&1', $output, $status );
 
-		return new Transformist_CommandResult( $command, $output, $status );
+		return new CommandResult( $command, $output, $status );
 	}
 }

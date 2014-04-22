@@ -1,5 +1,9 @@
 <?php
 
+namespace Transformist;
+
+
+
 /**
  *	Holds informations about executed commands.
  *
@@ -7,7 +11,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_CommandResult {
+class CommandResult {
 
 	/**
 	 *	Executed command.

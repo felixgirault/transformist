@@ -1,17 +1,27 @@
 <?php
 
+namespace Transformist;
+
+use Transformist\ConverterCollection;
+use Transformist\Document;
+use Transformist\Exception;
+use Transformist\FileInfo;
+use Transformist\Registry;
+
+
+
 /**
  *	A high level API to handle file conversions.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Transformist {
+class Transformist {
 
 	/**
 	 *	A collection of converters.
 	 *
-	 *	@var Transformist_ConverterCollection
+	 *	@var ConverterCollection
 	 */
 
 	protected $_ConverterCollection = null;
@@ -68,7 +78,7 @@ class Transformist_Transformist {
 
 	public function __construct( ) {
 
-		$this->_ConverterCollection = new Transformist_ConverterCollection( );
+		$this->_ConverterCollection = new ConverterCollection( );
 		$this->_mapConverters( );
 	}
 
@@ -150,14 +160,14 @@ class Transformist_Transformist {
 	/**
 	 *	Checks if there is a way convert the given document.
 	 *
-	 *	@param Transformist_Document $Document Document to convert.
+	 *	@param Document $Document Document to convert.
 	 *	@return boolean|integer True if the document can be converter, otherwise
 	 *		false. If deep conversions are enabled, the method will return
 	 *		the number of conversions that will be done to achieve the full
 	 *		conversion.
 	 */
 
-	public function canConvert( Transformist_Document $Document ) {
+	public function canConvert( Document $Document ) {
 
 		return ( $this->_converterFor( $Document ) !== null );
 	}
@@ -189,8 +199,8 @@ class Transformist_Transformist {
 		}
 
 		$this->_pending = array(
-			'input' => Transformist_FileInfo::absolutePath( $input ),
-			'output' => Transformist_FileInfo::absolutePath( $output ),
+			'input' => FileInfo::absolutePath( $input ),
+			'output' => FileInfo::absolutePath( $output ),
 			'conversions' => is_array( $from )
 				? $from
 				: array( $from => $to )
@@ -259,12 +269,12 @@ class Transformist_Transformist {
 			if ( $files ) {
 				foreach ( $files as $file ) {
 					if ( $mime ) {
-						$FileInfo = new Transformist_FileInfo( $file );
+						$FileInfo = new FileInfo( $file );
 						$type = false;
 
 						try {
 							$type = $FileInfo->type( );
-						} catch ( Transformist_Exception $exception ) {
+						} catch ( Exception $exception ) {
 							//var_dump( $exception->getMessage( ));
 						}
 
@@ -273,11 +283,11 @@ class Transformist_Transformist {
 						}
 					}
 
-					$Input = new Transformist_FileInfo( $file, ( $mime ? $in : '' ));
-					$Output = new Transformist_FileInfo( $this->_pending['output'] . DS . basename( $file ), $out );
-					$Output->setExtension( Transformist_Registry::extension( $out ));
+					$Input = new FileInfo( $file, ( $mime ? $in : '' ));
+					$Output = new FileInfo( $this->_pending['output'] . DS . basename( $file ), $out );
+					$Output->setExtension( Registry::extension( $out ));
 
-					$this->addDocument( new Transformist_Document( $Input, $Output ));
+					$this->addDocument( new Document( $Input, $Output ));
 				}
 			}
 		}
@@ -288,11 +298,11 @@ class Transformist_Transformist {
 	/**
 	 *	Adds the given Document to the conversion queue.
 	 *
-	 *	@param Transformist_Document $Document Document to add.
+	 *	@param Document $Document Document to add.
 	 *	@return Transformist Current instance to allow chaining.
 	 */
 
-	public function addDocument( Transformist_Document $Document ) {
+	public function addDocument( Document $Document ) {
 
 		$this->_documents[] = $Document;
 		return $this;
@@ -303,7 +313,7 @@ class Transformist_Transformist {
 	/**
 	 *	Converts all pending documents.
 	 *
-	 *	@param Transformist_Document $Document Document to convert.
+	 *	@param Document $Document Document to convert.
 	 *	@return boolean True if every document was converted, otherwise false.
 	 */
 
@@ -315,7 +325,7 @@ class Transformist_Transformist {
 		foreach ( $this->_documents as $Document ) {
 			try {
 				$this->_convert( $Document );
-			} catch ( Transformist_Exception $exception ) {
+			} catch ( Exception $exception ) {
 				//var_dump( $exception->getMessage( ));
 				$success = false;
 			}
@@ -330,20 +340,20 @@ class Transformist_Transformist {
 	/**
 	 *	Converts the given document.
 	 *
-	 *	@param Transformist_Document $Document Document to convert.
+	 *	@param Document $Document Document to convert.
 	 */
 
-	protected function _convert( Transformist_Document $Document ) {
+	protected function _convert( Document $Document ) {
 
 		if ( !$Document->input( )->isReadable( )) {
-			throw new Transformist_Exception(
+			throw new Exception(
 				'The file %s is not readable.',
 				$Document->input( )->path( )
 			);
 		}
 
 		if ( !$Document->output( )->isDirWritable( )) {
-			throw new Transformist_Exception(
+			throw new Exception(
 				'The directory %s is not writable.',
 				$Document->output( )->dirPath( )
 			);
@@ -362,12 +372,12 @@ class Transformist_Transformist {
 	 *	Finds and returns a chain of converters which can convert the given
 	 *	document.
 	 *
-	 *	@param Transformist_Document $Document Document to convert.
+	 *	@param Document $Document Document to convert.
 	 *	@return array An array of converter names, or an empty array if no
 	 *		chain were found.
 	 */
 
-	protected function _converterFor( Transformist_Document $Document ) {
+	protected function _converterFor( Document $Document ) {
 
 		$inputType = $Document->input( )->type( );
 		$outputType = $Document->output( )->type( );

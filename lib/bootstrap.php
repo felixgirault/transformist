@@ -20,7 +20,7 @@ if ( !defined( 'TRANSFORMIST_ROOT')) {
 
 require_once TRANSFORMIST_ROOT . 'Transformist' . DS . 'ClassLoader.php';
 
-$ClassLoader = new Transformist_ClassLoader( TRANSFORMIST_ROOT );
+$ClassLoader = new Transformist\ClassLoader( TRANSFORMIST_ROOT );
 $ClassLoader->register( );
 
 
@@ -29,7 +29,7 @@ $ClassLoader->register( );
  *	Types
  */
 
-Transformist_Registry::register(
+Transformist\Registry::register(
 	array(
 		'avi'	=> 'video/x-msvideo',
 		'css'	=> 'text/css',

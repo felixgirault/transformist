@@ -1,13 +1,19 @@
 <?php
 
+namespace Transformist;
+
+use Exception as NativeException;
+
+
+
 /**
- *	The base Exception class for SaeTransformist.
+ *	The base Exception class for Transformist.
  *
  *	@package Transformist
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Exception extends Exception {
+class Exception extends NativeException {
 
 	/**
 	 *	Constructs an Exception.

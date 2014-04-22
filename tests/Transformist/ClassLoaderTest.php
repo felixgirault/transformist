@@ -1,12 +1,18 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
+
+
+
 /**
  *	Test case for ClassLoader.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_ClassLoaderTest extends PHPUnit_Framework_TestCase {
+class ClassLoaderTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -22,7 +28,7 @@ class Transformist_ClassLoaderTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp( ) {
 
-		$this->ClassLoader = new Transformist_ClassLoader( TRANSFORMIST_TEST_RESOURCE );
+		$this->ClassLoader = new ClassLoader( TRANSFORMIST_TEST_RESOURCE );
 		$this->ClassLoader->register( );
 	}
 
@@ -50,7 +56,7 @@ class Transformist_ClassLoaderTest extends PHPUnit_Framework_TestCase {
 
 	public function testLoad( ) {
 
-		$this->assertTrue( class_exists( 'Transformist_Converter_Fake_Html' ));
+		$this->assertTrue( class_exists( 'Transformist\\Converter\\Fake\\Html' ));
 	}
 
 
@@ -61,6 +67,6 @@ class Transformist_ClassLoaderTest extends PHPUnit_Framework_TestCase {
 
 	public function testLoadUndefined( ) {
 
-		$this->assertFalse( class_exists( 'Transformist_Converter_Undefined' ));
+		$this->assertFalse( class_exists( 'Transformist\\Converter\\Undefined' ));
 	}
 }

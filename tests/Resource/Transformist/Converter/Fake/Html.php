@@ -1,10 +1,16 @@
 <?php
 
+namespace Transformist\Converter\Fake;
+
+use Transformist\Converter\Fake;
+
+
+
 /**
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Converter_Fake_Html extends Transformist_Converter_Fake {
+class Html extends Fake {
 
 	/**
 	 *

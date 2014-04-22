@@ -1,12 +1,18 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
+
+
+
 /**
  *	Test case for Exception.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_ExceptionTest extends PHPUnit_Framework_TestCase {
+class ExceptionTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -16,7 +22,7 @@ class Transformist_ExceptionTest extends PHPUnit_Framework_TestCase {
 
 		$message = 'Hello world!';
 
-		$Exception = new Transformist_Exception( $message );
+		$Exception = new Exception( $message );
 		$this->assertEquals( $message, $Exception->getMessage( ));
 	}
 
@@ -32,7 +38,7 @@ class Transformist_ExceptionTest extends PHPUnit_Framework_TestCase {
 		$argument = 'world';
 		$message = sprintf( $format, $argument );
 
-		$Exception = new Transformist_Exception( $format, $argument );
+		$Exception = new Exception( $format, $argument );
 		$this->assertEquals( $message, $Exception->getMessage( ));
 	}
 }

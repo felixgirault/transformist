@@ -1,12 +1,18 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
+
+
+
 /**
  *	Test case for Registry.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_RegistryTest extends PHPUnit_Framework_TestCase {
+class RegistryTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -14,7 +20,7 @@ class Transformist_RegistryTest extends PHPUnit_Framework_TestCase {
 
 	public function testUnregisteredExtension( ) {
 
-		$this->assertEmpty( Transformist_Registry::extension( 'mime/type' ));
+		$this->assertEmpty( Registry::extension( 'mime/type' ));
 	}
 
 
@@ -25,9 +31,9 @@ class Transformist_RegistryTest extends PHPUnit_Framework_TestCase {
 
 	public function testExtension( ) {
 
-		Transformist_Registry::register( 'ext', 'mime/type' );
+		Registry::register( 'ext', 'mime/type' );
 
-		$this->assertEquals( 'ext', Transformist_Registry::extension( 'mime/type' ));
+		$this->assertEquals( 'ext', Registry::extension( 'mime/type' ));
 	}
 
 
@@ -38,14 +44,14 @@ class Transformist_RegistryTest extends PHPUnit_Framework_TestCase {
 
 	public function testRegisterMulti( ) {
 
-		Transformist_Registry::register(
+		Registry::register(
 			array(
 				'foo' => 'mime/foo',
 				'bar' => 'mime/bar'
 			)
 		);
 
-		$this->assertEquals( 'foo', Transformist_Registry::extension( 'mime/foo' ));
-		$this->assertEquals( 'bar', Transformist_Registry::extension( 'mime/bar' ));
+		$this->assertEquals( 'foo', Registry::extension( 'mime/foo' ));
+		$this->assertEquals( 'bar', Registry::extension( 'mime/bar' ));
 	}
 }

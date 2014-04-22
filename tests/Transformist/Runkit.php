@@ -1,5 +1,11 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
+
+
+
 /**
  *	A wrapper for runkit extension.
  *

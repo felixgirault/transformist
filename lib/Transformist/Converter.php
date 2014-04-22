@@ -1,5 +1,11 @@
 <?php
 
+namespace Transformist;
+
+use Transformist\Document;
+
+
+
 /**
  *	The base class for a Converter.
  *
@@ -7,7 +13,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-abstract class Transformist_Converter {
+abstract class Converter {
 
 	/**
 	 *	Runs some tests to determine if the converter can run properly.
@@ -42,9 +48,9 @@ abstract class Transformist_Converter {
 	/**
 	 *	Converts the given document.
 	 *
-	 *	@param Transformist_Document $Document Document to convert.
+	 *	@param Document $Document Document to convert.
 	 */
 
-	abstract public function convert( Transformist_Document $Document );
+	abstract public function convert( Document $Document );
 
 }

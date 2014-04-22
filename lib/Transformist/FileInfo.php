@@ -1,5 +1,12 @@
 <?php
 
+namespace Transformist;
+
+use finfo;
+use Transformist\Exception;
+
+
+
 /**
  *	Wraps some functionnalities of SplFileInfo, and adds some pretty useful stuff.
  *
@@ -7,7 +14,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_FileInfo {
+class FileInfo {
 
 	/**
 	 *	File path.
@@ -201,7 +208,7 @@ class Transformist_FileInfo {
 	 *	Returns the MIME type of the file.
 	 *
 	 *	@return string MIME type.
-	 *	@throws Transformist_Exception
+	 *	@throws Exception
 	 */
 
 	public function type( ) {
@@ -231,13 +238,13 @@ class Transformist_FileInfo {
 	/**
 	 *	Attempts to detect the MIME type of the file.
 	 *
-	 *	@throws Transformist_Exception
+	 *	@throws Exception
 	 */
 
 	protected function _detectType( ) {
 
 		if ( !class_exists( 'finfo' )) {
-			throw new Transformist_Exception(
+			throw new Exception(
 				'MIME type detection requires the FileInfo extension.'
 			);
 		}
@@ -246,7 +253,7 @@ class Transformist_FileInfo {
 		$type = @$info->file( $this->_path );
 
 		if ( $type === false ) {
-			throw new Transformist_Exception( 'Unable to detect MIME type.' );
+			throw new Exception( 'Unable to detect MIME type.' );
 		}
 
 		// finfo can return MIME types in the form 'application/msword; charset=binary'.

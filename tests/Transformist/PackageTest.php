@@ -1,5 +1,8 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStream;
 
 
@@ -10,7 +13,7 @@ use org\bovigo\vfs\vfsStream;
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_PackageTest extends PHPUnit_Framework_TestCase {
+class PackageTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -52,7 +55,7 @@ class Transformist_PackageTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 
-		$this->Package = new Transformist_Package( vfsStream::url( 'root' ), '_' );
+		$this->Package = new Package( vfsStream::url( 'root' ), '_' );
 	}
 
 
@@ -65,7 +68,7 @@ class Transformist_PackageTest extends PHPUnit_Framework_TestCase {
 
 		$dir = dirname( __FILE__ );
 
-		$Package = new Transformist_Package( $dir );
+		$Package = new Package( $dir );
 		$this->assertEquals( $dir, $Package->path( ));
 	}
 
@@ -79,7 +82,7 @@ class Transformist_PackageTest extends PHPUnit_Framework_TestCase {
 
 		$dir = dirname( __FILE__ );
 
-		$Package = new Transformist_Package( __FILE__ );
+		$Package = new Package( __FILE__ );
 		$this->assertEquals( $dir, $Package->path( ));
 	}
 
@@ -91,7 +94,7 @@ class Transformist_PackageTest extends PHPUnit_Framework_TestCase {
 
 	public function testSeparator( ) {
 
-		$Package = new Transformist_Package( 'foo', '\\' );
+		$Package = new Package( 'foo', '\\' );
 		$this->assertEquals( '\\', $Package->separator( ));
 	}
 

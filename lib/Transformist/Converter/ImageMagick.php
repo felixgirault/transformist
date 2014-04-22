@@ -1,5 +1,14 @@
 <?php
 
+namespace Transformist\Converter;
+
+use Transformist\Converter;
+use Transformist\Command;
+use Transformist\Document;
+use Transformist\Registry;
+
+
+
 /**
  *	Converts documents using ImageMagick.
  *
@@ -7,7 +16,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Converter_ImageMagick extends Transformist_Converter {
+class ImageMagick extends Converter {
 
 	/**
 	 *	Tests if the convert command is available on the system.
@@ -17,7 +26,7 @@ class Transformist_Converter_ImageMagick extends Transformist_Converter {
 
 	public static function isRunnable( ) {
 
-		$Convert = new Transformist_Command( 'convert' );
+		$Convert = new Command( 'convert' );
 
 		return $Convert->exists( )
 			? true
@@ -76,13 +85,13 @@ class Transformist_Converter_ImageMagick extends Transformist_Converter {
 	/**
 	 *	Converts the given document.
 	 *
-	 *	@param Transformist_Document $Document Document to convert.
+	 *	@param Document $Document Document to convert.
 	 */
 
-	public function convert( Transformist_Document $Document ) {
+	public function convert( Document $Document ) {
 
 		$Input =& $Document->input( );
-		$input = Transformist_Registry::extension( $Input->type( ));
+		$input = Registry::extension( $Input->type( ));
 
 		if ( !empty( $input )) {
 			$input .= ':';
@@ -91,7 +100,7 @@ class Transformist_Converter_ImageMagick extends Transformist_Converter {
 		$input .= $Input->path( );
 
 		$Output =& $Document->output( );
-		$output = Transformist_Registry::extension( $Output->type( ));
+		$output = Registry::extension( $Output->type( ));
 
 		if ( !empty( $output )) {
 			$output .= ':';
@@ -99,7 +108,7 @@ class Transformist_Converter_ImageMagick extends Transformist_Converter {
 
 		$output .= $Output->path( );
 
-		$Convert = new Transformist_Command( 'convert' );
+		$Convert = new Command( 'convert' );
 		$Convert->execute( array( $input, $output ));
 	}
 }

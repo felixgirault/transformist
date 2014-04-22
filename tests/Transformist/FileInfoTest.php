@@ -1,5 +1,8 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStream;
 
 
@@ -10,7 +13,7 @@ use org\bovigo\vfs\vfsStream;
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_FileInfoTest extends PHPUnit_Framework_TestCase {
+class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -59,8 +62,8 @@ class Transformist_FileInfoTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->vfs->addChild( $restricted );
 
-		$this->XmlFileInfo = new Transformist_FileInfo( vfsStream::url( 'root/accessible/foo.xml' ));
-		$this->GifFileInfo = new Transformist_FileInfo( vfsStream::url( 'root/restricted/bar.gif' ));
+		$this->XmlFileInfo = new FileInfo( vfsStream::url( 'root/accessible/foo.xml' ));
+		$this->GifFileInfo = new FileInfo( vfsStream::url( 'root/restricted/bar.gif' ));
 	}
 
 
@@ -104,7 +107,7 @@ class Transformist_FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testSetExtension( ) {
 
-		$FileInfo = new Transformist_FileInfo( 'foo/bar/foo' );
+		$FileInfo = new FileInfo( 'foo/bar/foo' );
 		$FileInfo->setExtension( 'bar' );
 
 		$this->assertEquals( 'bar', $FileInfo->extension( ));
@@ -245,7 +248,7 @@ class Transformist_FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testForcedType( ) {
 
-		$FileInfo = new Transformist_FileInfo( '', 'application/pdf' );
+		$FileInfo = new FileInfo( '', 'application/pdf' );
 		$this->assertEquals( 'application/pdf', $FileInfo->type( ));
 	}
 
@@ -261,7 +264,7 @@ class Transformist_FileInfoTest extends PHPUnit_Framework_TestCase {
 
 		try {
 			$this->GifFileInfo->type( );
-		} catch ( Transformist_Exception $e ) {
+		} catch ( Exception $e ) {
 			$caught = true;
 		}
 
@@ -279,12 +282,12 @@ class Transformist_FileInfoTest extends PHPUnit_Framework_TestCase {
 		Runkit::requiredBy( $this );
 		Runkit::reimplementFunction( 'class_exists', '$className', 'return false;' );
 
-		$FileInfo = new Transformist_FileInfo( vfsStream::url( 'root/accessible/empty' ));
+		$FileInfo = new FileInfo( vfsStream::url( 'root/accessible/empty' ));
 		$caught = false;
 
 		try {
 			$FileInfo->type( );
-		} catch ( Transformist_Exception $e ) {
+		} catch ( Exception $e ) {
 			$caught = true;
 		}
 

@@ -1,5 +1,9 @@
 <?php
 
+namespace Transformist\Converter;
+
+use PHPUnit_Framework_TestCase;
+
 define(
 	'IMAGEMAGICK_INPUT_FILE',
 	TRANSFORMIST_TEST_RESOURCE . 'File' . DS . 'Input' . DS . 'sample.jpg'
@@ -18,7 +22,7 @@ define(
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Converter_ImageMagickTest extends PHPUnit_Framework_TestCase {
+class ImageMagickTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -42,18 +46,18 @@ class Transformist_Converter_ImageMagickTest extends PHPUnit_Framework_TestCase 
 
 	public function setUp( ) {
 
-		$runnable = Transformist_Converter_ImageMagick::isRunnable( );
+		$runnable = ImageMagick::isRunnable( );
 
 		if ( $runnable !== true ) {
 			$this->markTestSkipped( $runnable );
 		}
 
-		Transformist_cleanDirectory( dirname( IMAGEMAGICK_OUTPUT_FILE ));
+		cleanDirectory( dirname( IMAGEMAGICK_OUTPUT_FILE ));
 
-		$this->ImageMagick = new Transformist_Converter_ImageMagick( );
-		$this->Document = new Transformist_Document(
-			new Transformist_FileInfo( IMAGEMAGICK_INPUT_FILE ),
-			new Transformist_FileInfo( IMAGEMAGICK_OUTPUT_FILE, 'image/png' )
+		$this->ImageMagick = new ImageMagick( );
+		$this->Document = new Document(
+			new FileInfo( IMAGEMAGICK_INPUT_FILE ),
+			new FileInfo( IMAGEMAGICK_OUTPUT_FILE, 'image/png' )
 		);
 	}
 

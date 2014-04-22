@@ -1,5 +1,9 @@
 <?php
 
+namespace Transformist\Converter;
+
+use PHPUnit_Framework_TestCase;
+
 define(
 	'OFFICE_INPUT_FILE',
 	TRANSFORMIST_TEST_RESOURCE . 'File' . DS . 'Input' . DS . 'sample.doc'
@@ -18,7 +22,7 @@ define(
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Converter_OfficeTest extends PHPUnit_Framework_TestCase {
+class OfficeTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -42,18 +46,18 @@ class Transformist_Converter_OfficeTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp( ) {
 
-		$runnable = Transformist_Converter_Office::isRunnable( );
+		$runnable = Office::isRunnable( );
 
 		if ( $runnable !== true ) {
 			$this->markTestSkipped( $runnable );
 		}
 
-		Transformist_cleanDirectory( dirname( OFFICE_OUTPUT_FILE ));
+		cleanDirectory( dirname( OFFICE_OUTPUT_FILE ));
 
-		$this->Office = new Transformist_Converter_Office( );
-		$this->Document = new Transformist_Document(
-			new Transformist_FileInfo( OFFICE_INPUT_FILE ),
-			new Transformist_FileInfo( OFFICE_OUTPUT_FILE, 'application/pdf' )
+		$this->Office = new Office( );
+		$this->Document = new Document(
+			new FileInfo( OFFICE_INPUT_FILE ),
+			new FileInfo( OFFICE_OUTPUT_FILE, 'application/pdf' )
 		);
 	}
 

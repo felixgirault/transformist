@@ -1,5 +1,11 @@
 <?php
 
+namespace Transformist;
+
+use Transformist\FileInfo;
+
+
+
 /**
  *	Represents a document to convert.
  *
@@ -7,12 +13,12 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_Document {
+class Document {
 
 	/**
 	 *	Input file.
 	 *
-	 *	@param Transformist_FileInfo
+	 *	@param FileInfo
 	 */
 
 	protected $_Input;
@@ -22,7 +28,7 @@ class Transformist_Document {
 	/**
 	 *	Output file.
 	 *
-	 *	@param Transformist_FileInfo
+	 *	@param FileInfo
 	 */
 
 	protected $_Output;
@@ -32,11 +38,11 @@ class Transformist_Document {
 	/**
 	 *	Constructs a document given its input and output file infos.
 	 *
-	 *	@param Transformist_FileInfo $Input Input file info.
-	 *	@param Transformist_FileInfo $Output Output file info.
+	 *	@param FileInfo $Input Input file info.
+	 *	@param FileInfo $Output Output file info.
 	 */
 
-	public function __construct( Transformist_FileInfo $Input, Transformist_FileInfo $Output ) {
+	public function __construct( FileInfo $Input, FileInfo $Output ) {
 
 		$this->_Input = $Input;
 		$this->_Output = $Output;
@@ -59,7 +65,7 @@ class Transformist_Document {
 	/**
 	 *	Returns the input file info object.
 	 *
-	 *	@return Transformist_FileInfo File info.
+	 *	@return FileInfo File info.
 	 */
 
 	public function input( ) {
@@ -72,10 +78,10 @@ class Transformist_Document {
 	/**
 	 *	Sets the input file info object.
 	 *
-	 *	@param Transformist_FileInfo $Input File info.
+	 *	@param FileInfo $Input File info.
 	 */
 
-	public function setInput( Transformist_FileInfo $Input ) {
+	public function setInput( FileInfo $Input ) {
 
 		$this->_Input = clone $Input;
 	}
@@ -85,7 +91,7 @@ class Transformist_Document {
 	/**
 	 *	Returns the output file info object.
 	 *
-	 *	@return Transformist_FileInfo File info.
+	 *	@return FileInfo File info.
 	 */
 
 	public function output( ) {
@@ -98,10 +104,10 @@ class Transformist_Document {
 	/**
 	 *	Sets the output file info object.
 	 *
-	 *	@return Transformist_FileInfo $Output File info.
+	 *	@return FileInfo $Output File info.
 	 */
 
-	public function setOutput( Transformist_FileInfo $Output ) {
+	public function setOutput( FileInfo $Output ) {
 
 		$this->_Output = clone $Output;
 	}

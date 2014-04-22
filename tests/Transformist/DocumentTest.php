@@ -1,5 +1,8 @@
 <?php
 
+namespace Transformist;
+
+use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStream;
 
 
@@ -10,7 +13,7 @@ use org\bovigo\vfs\vfsStream;
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_DocumentTest extends PHPUnit_Framework_TestCase {
+class DocumentTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -56,9 +59,9 @@ class Transformist_DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$this->vfs = vfsStream::setup( 'root', null, array( 'input.txt' ));
 
-		$this->Input = new Transformist_FileInfo( vfsStream::url( 'root/input.txt' ));
-		$this->Output = new Transformist_FileInfo( vfsStream::url( 'root/output.doc' ));
-		$this->Document = new Transformist_Document( $this->Input, $this->Output );
+		$this->Input = new FileInfo( vfsStream::url( 'root/input.txt' ));
+		$this->Output = new FileInfo( vfsStream::url( 'root/output.doc' ));
+		$this->Document = new Document( $this->Input, $this->Output );
 	}
 
 

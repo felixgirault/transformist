@@ -1,5 +1,11 @@
 <?php
 
+namespace Transformist;
+
+use ReflectionClass;
+
+
+
 /**
  *	A collection of converters.
  *
@@ -7,7 +13,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist_ConverterCollection {
+class ConverterCollection {
 
 	/**
 	 *	A list of loaded converters.
@@ -22,7 +28,7 @@ class Transformist_ConverterCollection {
 	/**
 	 *	Constructs the collection.
 	 *
-	 *	@see Transformist_ConverterCollection::configure( )
+	 *	@see ConverterCollection::configure( )
 	 *	@param array $options Configuration options.
 	 */
 
@@ -39,7 +45,7 @@ class Transformist_ConverterCollection {
 
 	protected function _listConverters( ) {
 
-		$Package = new Transformist_Package( TRANSFORMIST_ROOT );
+		$Package = new Package( ROOT );
 		$classes = $Package->classes( array( 'Transformist', 'Converter' ), true );
 
 		foreach ( $classes as $className ) {
@@ -72,7 +78,7 @@ class Transformist_ConverterCollection {
 	 *	If necessary, loads the corresponding Converter and returns it.
 	 *
 	 *	@param string $name A Converter name, as returned by converterNames( ).
-	 *	@return Transformist_Converter|null An instance of the requested
+	 *	@return Converter|null An instance of the requested
 	 *		converter, or null if it can't be found.
 	 */
 
