@@ -69,6 +69,18 @@ class Transformist {
 
 
 	/**
+	 *
+	 */
+
+	public static function instance( ) {
+
+		$Container = new Container( );
+		return $Container['Transformist'];
+	}
+
+
+
+	/**
 	 *	Constructs Transformist, given an array of configuration options.
 	 *	These options will be merged with Transformist::$_defaults.
 	 *
@@ -190,12 +202,10 @@ class Transformist {
 	public function setup( $dir, $from, $to = '' ) {
 
 		if ( is_array( $dir )) {
-			reset( $dir );
+			$output = reset( $dir );
 			$input = key( $dir );
-			$output = current( $dir );
 		} else {
-			$input = $dir;
-			$output = $input;
+			$input = $output = $dir;
 		}
 
 		$this->_pending = array(

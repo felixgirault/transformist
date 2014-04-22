@@ -21,7 +21,7 @@ use Transformist\Registry;
 class Office extends Converter {
 
 	/**
-	 *	Tests if the soffice command is available on the system.
+	 *	Tests if the unoconv command is available on the system.
 	 *
 	 *	@return boolean|sting True if the command exists, otherwise an error message.
 	 */
@@ -94,9 +94,8 @@ class Office extends Converter {
 		// the link name as output file name.
 
 		$inputPath = $Input->path( );
-		$workaround = ( $Input->baseName( ) !== $Output->baseName( ));
 
-		if ( $workaround ) {
+		if ( $Input->baseName( ) !== $Output->baseName( )) {
 			$linkPath = $Output->dirPath( )
 				. DIRECTORY_SEPARATOR
 				. $Output->baseName( )

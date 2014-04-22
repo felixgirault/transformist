@@ -3,6 +3,8 @@
 namespace Transformist\Converter;
 
 use PHPUnit_Framework_TestCase;
+use Transformist\Document;
+use Transformist\FileInfo;
 
 define(
 	'IMAGEMAGICK_INPUT_FILE',

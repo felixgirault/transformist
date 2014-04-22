@@ -3,7 +3,7 @@
 namespace Transformist\Converter;
 
 use ReflectionClass;
-use Transformist\Package;
+use Transformist\Converter\Container;
 
 
 
@@ -43,31 +43,9 @@ class Collection {
 	 *	@param array $options Configuration options.
 	 */
 
-	public function __construct( ) {
+	public function __construct( Container $Container ) {
 
-		$this->_listConverters( );
-	}
-
-
-
-	/**
-	 *	Lists available converters.
-	 */
-
-	protected function _listConverters( ) {
-
-		$Package = new Package( ROOT );
-		$classes = $Package->classes( array( 'Transformist', 'Converter' ), true );
-
-		foreach ( $classes as $className ) {
-			if ( class_exists( $className )) {
-				$Reflection = new ReflectionClass( $className );
-
-				if ( !$Reflection->isAbstract( )) {
-					$this->_converters[ $className ] = null;	// for lazy load
-				}
-			}
-		}
+		$this->_Container = $Container;
 	}
 
 
@@ -96,7 +74,7 @@ class Collection {
 	public function get( $name ) {
 
 		if ( !array_key_exists( $name, $this->_converters )) {
-			return null;
+
 		}
 
 		$Converter = $this->_converters[ $name ];
