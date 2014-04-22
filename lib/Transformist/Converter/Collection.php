@@ -1,8 +1,9 @@
 <?php
 
-namespace Transformist;
+namespace Transformist\Converter;
 
 use ReflectionClass;
+use Transformist\Package;
 
 
 
@@ -13,7 +14,17 @@ use ReflectionClass;
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class ConverterCollection {
+class Collection {
+
+	/**
+	 *	A container for Converters.
+	 *
+	 *	@var array
+	 */
+
+	protected $_Container = array( );
+
+
 
 	/**
 	 *	A list of loaded converters.

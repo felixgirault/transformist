@@ -2,7 +2,7 @@
 
 namespace Transformist;
 
-use Transformist\ConverterCollection;
+use Transformist\Converter\Collection as ConverterCollection;
 use Transformist\Document;
 use Transformist\Exception;
 use Transformist\FileInfo;
@@ -24,7 +24,7 @@ class Transformist {
 	 *	@var ConverterCollection
 	 */
 
-	protected $_ConverterCollection = null;
+	protected $_Converters = null;
 
 
 
@@ -78,7 +78,7 @@ class Transformist {
 
 	public function __construct( ) {
 
-		$this->_ConverterCollection = new ConverterCollection( );
+		$this->_Converters = new ConverterCollection( );
 		$this->_mapConverters( );
 	}
 
@@ -90,7 +90,7 @@ class Transformist {
 
 	protected function _mapConverters( ) {
 
-		$converters = $this->_ConverterCollection->names( );
+		$converters = $this->_Converters->names( );
 
 		foreach ( $converters as $converter ) {
 			$conversions = $converter::conversions( );
@@ -126,7 +126,7 @@ class Transformist {
 			? $this
 			: new self( );
 
-		$converters = $_this->_ConverterCollection->names( );
+		$converters = $_this->_Converters->names( );
 		$results = array( );
 
 		foreach ( $converters as $converter ) {
@@ -384,7 +384,7 @@ class Transformist {
 		$Converter = null;
 
 		if ( isset( $this->_map[ $inputType ][ $outputType ])) {
-			$Converter = $this->_ConverterCollection->get(
+			$Converter = $this->_Converters->get(
 				$this->_map[ $inputType ][ $outputType ]
 			);
 		}

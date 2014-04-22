@@ -1,24 +1,24 @@
 <?php
 
-namespace Transformist;
+namespace Transformist\Converter;
 
 use PHPUnit_Framework_TestCase;
 
 
 
 /**
- *	Test case for ConverterCollection.
+ *	Test case for Collection.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class ConverterCollectionTest extends PHPUnit_Framework_TestCase {
+class CollectionTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
 	 */
 
-	public $ConverterCollection = null;
+	public $Collection = null;
 
 
 
@@ -31,7 +31,7 @@ class ConverterCollectionTest extends PHPUnit_Framework_TestCase {
 		Runkit::requiredBy( $this );
 		Runkit::redefineConstant( 'TRANSFORMIST_ROOT', TRANSFORMIST_TEST_RESOURCE );
 
-		$this->ConverterCollection = new ConverterCollection( );
+		$this->Collection = new Collection( );
 	}
 
 
@@ -48,7 +48,7 @@ class ConverterCollectionTest extends PHPUnit_Framework_TestCase {
 				'Transformist_Converter_Fake_Json',
 				'Transformist_Converter_Fake_Xml'
 			),
-			$this->ConverterCollection->names( )
+			$this->Collection->names( )
 		);
 	}
 
@@ -60,7 +60,7 @@ class ConverterCollectionTest extends PHPUnit_Framework_TestCase {
 
 	public function testGet( ) {
 
-		$Converter = $this->ConverterCollection->get( 'Transformist_Converter_Fake_Html' );
+		$Converter = $this->Collection->get( 'Transformist_Converter_Fake_Html' );
 
 		$this->assertTrue( $Converter instanceof Transformist\Converter\Fake\Html );
 	}
@@ -73,7 +73,7 @@ class ConverterCollectionTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetUnknown( ) {
 
-		$this->assertNull( $this->ConverterCollection->get( 'Unknown' ));
+		$this->assertNull( $this->Collection->get( 'Unknown' ));
 	}
 
 
