@@ -1,10 +1,5 @@
 <?php
 
-if ( !defined( 'TRANSFORMIST_BOOTSTRAPPED' )) {
-	require_once dirname( dirname( __FILE__ ))
-		. DIRECTORY_SEPARATOR . 'bootstrap.php';
-}
-
 define( 'CONVERTER_INPUT_TYPE', 'application/xml' );
 define( 'CONVERTER_OUTPUT_TYPE', 'application/pdf' );
 

@@ -1,10 +1,5 @@
 <?php
 
-if ( !defined( 'TRANSFORMIST_BOOTSTRAPPED' )) {
-	require_once dirname( dirname( dirname( __FILE__ )))
-		. DIRECTORY_SEPARATOR . 'bootstrap.php';
-}
-
 define(
 	'OFFICE_INPUT_FILE',
 	TRANSFORMIST_TEST_RESOURCE . 'File' . DS . 'Input' . DS . 'sample.doc'
