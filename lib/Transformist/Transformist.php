@@ -6,7 +6,7 @@
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class Transformist {
+class Transformist_Transformist {
 
 	/**
 	 *	A collection of converters.

@@ -32,14 +32,6 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 	 *
 	 */
 
-	public $MultistepTransformist = null;
-
-
-
-	/**
-	 *
-	 */
-
 	public function setUp( ) {
 
 		if ( !class_exists( '\\org\\bovigo\\vfs\\vfsStream' )) {
@@ -55,8 +47,7 @@ class Transformist_TransformistTest extends PHPUnit_Framework_TestCase {
 		$this->vfs->addChild( vfsStream::newDirectory( 'writable' ));
 		$this->vfs->addChild( vfsStream::newDirectory( 'unwritable', 0000 ));
 
-		$this->Transformist = new Transformist( );
-		$this->MultistepTransformist = new Transformist( array( 'multistep' => true ));
+		$this->Transformist = new Transformist_Transformist( );
 	}
 
 
