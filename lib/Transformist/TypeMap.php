@@ -30,16 +30,37 @@ class TypeMap {
 
 	/**
 	 *
+	 *
+	 *	@param string $type Input type.
+	 *	@return array Output types.
 	 */
 
-	public function add( $from, $to ) {
+	public function has( $input, $output ) {
 
-		if ( !isset( $this->_map[ $from ])) {
-			$this->_map[ $from ] = [ ];
+		if ( !isset( $this->_map[ $input ])) {
+			return false;
 		}
 
-		if ( !in_array( $to, $this->_map[ $from ])) {
-			$this->_map[ $from ][ ] = $to;
+		return in_array( $output, $this->_map[ $input ]);
+	}
+
+
+
+	/**
+	 *	Maps an input type to an output type.
+	 *
+	 *	@param string $input Input type.
+	 *	@param string $output Output type.
+	 */
+
+	public function map( $input, $output ) {
+
+		if ( !isset( $this->_map[ $input ])) {
+			$this->_map[ $input ] = [ ];
+		}
+
+		if ( !in_array( $output, $this->_map[ $input ])) {
+			$this->_map[ $input ][ ] = $output;
 		}
 	}
 
@@ -51,7 +72,7 @@ class TypeMap {
 	 *	@param array $types Types.
 	 */
 
-	public function addNetwork( array $types = [ ]) {
+	public function mapMultiway( array $types = [ ]) {
 
 		foreach ( $types as $type ) {
 			foreach ( $types as $otherType ) {
@@ -71,8 +92,8 @@ class TypeMap {
 	 *	@return array Output types.
 	 */
 
-	public function convertsTo( $type ) {
+	public function outputTypes( $input ) {
 
-		return $this->_map[ $type ];
+		return $this->_map[ $input ];
 	}
 }
