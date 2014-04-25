@@ -190,12 +190,10 @@ class Transformist {
 	public function setup( $dir, $from, $to = '' ) {
 
 		if ( is_array( $dir )) {
-			reset( $dir );
+			$output = reset( $dir );
 			$input = key( $dir );
-			$output = current( $dir );
 		} else {
-			$input = $dir;
-			$output = $input;
+			$input = $output = $dir;
 		}
 
 		$this->_pending = array(
