@@ -56,8 +56,8 @@ class OfficeTest extends PHPUnit_Framework_TestCase {
 
 		$this->Office = new Office( );
 		$this->Document = new Document(
-			new FileInfo( OFFICE_INPUT_FILE ),
-			new FileInfo( OFFICE_OUTPUT_FILE, 'application/pdf' )
+			new File( OFFICE_INPUT_FILE ),
+			new File( OFFICE_OUTPUT_FILE, 'application/pdf' )
 		);
 	}
 

@@ -8,13 +8,13 @@ use Transformist\Exception;
 
 
 /**
- *	Wraps some functionnalities of SplFileInfo, and adds some pretty useful stuff.
+ *	Wraps some functionnalities of SplFile, and adds some pretty useful stuff.
  *
  *	@package Transformist
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class FileInfo {
+class File {
 
 	/**
 	 *	File path.
@@ -37,7 +37,7 @@ class FileInfo {
 
 
 	/**
-	 *	Constructs a new FileInfo object.
+	 *	Constructs a new File object.
 	 *
 	 *	@param string $fileName Path to the file.
 	 *	@param string $type MIME type of the file to avoid auto detection.
@@ -245,7 +245,7 @@ class FileInfo {
 
 		if ( !class_exists( 'finfo' )) {
 			throw new Exception(
-				'MIME type detection requires the FileInfo extension.'
+				'MIME type detection requires the File extension.'
 			);
 		}
 

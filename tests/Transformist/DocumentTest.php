@@ -59,8 +59,8 @@ class DocumentTest extends PHPUnit_Framework_TestCase {
 
 		$this->vfs = vfsStream::setup( 'root', null, array( 'input.txt' ));
 
-		$this->Input = new FileInfo( vfsStream::url( 'root/input.txt' ));
-		$this->Output = new FileInfo( vfsStream::url( 'root/output.doc' ));
+		$this->Input = new File( vfsStream::url( 'root/input.txt' ));
+		$this->Output = new File( vfsStream::url( 'root/output.doc' ));
 		$this->Document = new Document( $this->Input, $this->Output );
 	}
 

@@ -5,7 +5,7 @@ namespace Transformist;
 use Transformist\Converter\Collection as ConverterCollection;
 use Transformist\Document;
 use Transformist\Exception;
-use Transformist\FileInfo;
+use Transformist\File;
 use Transformist\Registry;
 
 
@@ -199,8 +199,8 @@ class Transformist {
 		}
 
 		$this->_pending = array(
-			'input' => FileInfo::absolutePath( $input ),
-			'output' => FileInfo::absolutePath( $output ),
+			'input' => File::absolutePath( $input ),
+			'output' => File::absolutePath( $output ),
 			'conversions' => is_array( $from )
 				? $from
 				: array( $from => $to )
@@ -269,11 +269,11 @@ class Transformist {
 			if ( $files ) {
 				foreach ( $files as $file ) {
 					if ( $mime ) {
-						$FileInfo = new FileInfo( $file );
+						$File = new File( $file );
 						$type = false;
 
 						try {
-							$type = $FileInfo->type( );
+							$type = $File->type( );
 						} catch ( Exception $exception ) {
 							//var_dump( $exception->getMessage( ));
 						}
@@ -283,8 +283,8 @@ class Transformist {
 						}
 					}
 
-					$Input = new FileInfo( $file, ( $mime ? $in : '' ));
-					$Output = new FileInfo( $this->_pending['output'] . DS . basename( $file ), $out );
+					$Input = new File( $file, ( $mime ? $in : '' ));
+					$Output = new File( $this->_pending['output'] . DS . basename( $file ), $out );
 					$Output->setExtension( Registry::extension( $out ));
 
 					$this->addDocument( new Document( $Input, $Output ));

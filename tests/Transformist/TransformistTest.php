@@ -86,8 +86,8 @@ class TransformistTest extends PHPUnit_Framework_TestCase {
 	public function testCanConvert( ) {
 
 		$Document = new Document(
-			new FileInfo( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
-			new FileInfo( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
+			new File( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
+			new File( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
 		);
 
 		$this->assertTrue( $this->Transformist->canConvert( $Document ));
@@ -102,8 +102,8 @@ class TransformistTest extends PHPUnit_Framework_TestCase {
 	public function testCantConvert( ) {
 
 		$Document = new Document(
-			new FileInfo( 'foo', 'text/plain' ),
-			new FileInfo( 'bar', 'unknown' )
+			new File( 'foo', 'text/plain' ),
+			new File( 'bar', 'unknown' )
 		);
 
 		$this->assertFalse( $this->Transformist->canConvert( $Document ));
@@ -118,8 +118,8 @@ class TransformistTest extends PHPUnit_Framework_TestCase {
 	public function testConvert( ) {
 
 		$Document = new Document(
-			new FileInfo( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
-			new FileInfo( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
+			new File( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
+			new File( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
 		);
 
 		$this->Transformist->addDocument( $Document );
@@ -135,8 +135,8 @@ class TransformistTest extends PHPUnit_Framework_TestCase {
 	public function testConvertFromUnreadableFile( ) {
 
 		$Document = new Document(
-			new FileInfo( vfsStream::url( 'root/unreadable.txt' )),
-			new FileInfo( vfsStream::url( 'root/writable/foo.bar' ))
+			new File( vfsStream::url( 'root/unreadable.txt' )),
+			new File( vfsStream::url( 'root/writable/foo.bar' ))
 		);
 
 		$this->Transformist->addDocument( $Document );
@@ -152,8 +152,8 @@ class TransformistTest extends PHPUnit_Framework_TestCase {
 	public function testConvertToUnwritableDir( ) {
 
 		$Document = new Document(
-			new FileInfo( vfsStream::url( 'root/readable.txt' )),
-			new FileInfo( vfsStream::url( 'root/unwritable/converted' ))
+			new File( vfsStream::url( 'root/readable.txt' )),
+			new File( vfsStream::url( 'root/unwritable/converted' ))
 		);
 
 		$this->Transformist->addDocument( $Document );

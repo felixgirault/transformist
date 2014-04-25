@@ -2,7 +2,7 @@
 
 namespace Transformist;
 
-use Transformist\FileInfo;
+use Transformist\File;
 
 
 
@@ -18,7 +18,7 @@ class Document {
 	/**
 	 *	Input file.
 	 *
-	 *	@param FileInfo
+	 *	@param File
 	 */
 
 	protected $_Input;
@@ -28,7 +28,7 @@ class Document {
 	/**
 	 *	Output file.
 	 *
-	 *	@param FileInfo
+	 *	@param File
 	 */
 
 	protected $_Output;
@@ -38,11 +38,11 @@ class Document {
 	/**
 	 *	Constructs a document given its input and output file infos.
 	 *
-	 *	@param FileInfo $Input Input file info.
-	 *	@param FileInfo $Output Output file info.
+	 *	@param File $Input Input file info.
+	 *	@param File $Output Output file info.
 	 */
 
-	public function __construct( FileInfo $Input, FileInfo $Output ) {
+	public function __construct( File $Input, File $Output ) {
 
 		$this->_Input = $Input;
 		$this->_Output = $Output;
@@ -65,7 +65,7 @@ class Document {
 	/**
 	 *	Returns the input file info object.
 	 *
-	 *	@return FileInfo File info.
+	 *	@return File File info.
 	 */
 
 	public function input( ) {
@@ -78,10 +78,10 @@ class Document {
 	/**
 	 *	Sets the input file info object.
 	 *
-	 *	@param FileInfo $Input File info.
+	 *	@param File $Input File info.
 	 */
 
-	public function setInput( FileInfo $Input ) {
+	public function setInput( File $Input ) {
 
 		$this->_Input = clone $Input;
 	}
@@ -91,7 +91,7 @@ class Document {
 	/**
 	 *	Returns the output file info object.
 	 *
-	 *	@return FileInfo File info.
+	 *	@return File File info.
 	 */
 
 	public function output( ) {
@@ -104,10 +104,10 @@ class Document {
 	/**
 	 *	Sets the output file info object.
 	 *
-	 *	@return FileInfo $Output File info.
+	 *	@return File $Output File info.
 	 */
 
-	public function setOutput( FileInfo $Output ) {
+	public function setOutput( File $Output ) {
 
 		$this->_Output = clone $Output;
 	}

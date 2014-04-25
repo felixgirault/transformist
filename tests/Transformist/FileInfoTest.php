@@ -8,12 +8,12 @@ use org\bovigo\vfs\vfsStream;
 
 
 /**
- *	Test case for FileInfo.
+ *	Test case for File.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class FileInfoTest extends PHPUnit_Framework_TestCase {
+class FileTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -27,8 +27,8 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 	 *
 	 */
 
-	public $XmlFileInfo = null;
-	public $GifFileInfo = null;
+	public $XmlFile = null;
+	public $GifFile = null;
 
 
 
@@ -62,8 +62,8 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->vfs->addChild( $restricted );
 
-		$this->XmlFileInfo = new FileInfo( vfsStream::url( 'root/accessible/foo.xml' ));
-		$this->GifFileInfo = new FileInfo( vfsStream::url( 'root/restricted/bar.gif' ));
+		$this->XmlFile = new File( vfsStream::url( 'root/accessible/foo.xml' ));
+		$this->GifFile = new File( vfsStream::url( 'root/restricted/bar.gif' ));
 	}
 
 
@@ -74,7 +74,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testExists( ) {
 
-		$this->assertTrue( $this->XmlFileInfo->exists( ));
+		$this->assertTrue( $this->XmlFile->exists( ));
 	}
 
 
@@ -85,7 +85,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testBaseName( ) {
 
-		$this->assertEquals( 'foo', $this->XmlFileInfo->baseName( ));
+		$this->assertEquals( 'foo', $this->XmlFile->baseName( ));
 	}
 
 
@@ -96,7 +96,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testExtension( ) {
 
-		$this->assertEquals( 'xml', $this->XmlFileInfo->extension( ));
+		$this->assertEquals( 'xml', $this->XmlFile->extension( ));
 	}
 
 
@@ -107,10 +107,10 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testSetExtension( ) {
 
-		$FileInfo = new FileInfo( 'foo/bar/foo' );
-		$FileInfo->setExtension( 'bar' );
+		$File = new File( 'foo/bar/foo' );
+		$File->setExtension( 'bar' );
 
-		$this->assertEquals( 'bar', $FileInfo->extension( ));
+		$this->assertEquals( 'bar', $File->extension( ));
 	}
 
 
@@ -121,7 +121,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsReadable( ) {
 
-		$this->assertTrue( $this->XmlFileInfo->isReadable( ));
+		$this->assertTrue( $this->XmlFile->isReadable( ));
 	}
 
 
@@ -132,7 +132,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsUnreadable( ) {
 
-		$this->assertFalse( $this->GifFileInfo->isReadable( ));
+		$this->assertFalse( $this->GifFile->isReadable( ));
 	}
 
 
@@ -143,7 +143,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsWritable( ) {
 
-		$this->assertTrue( $this->XmlFileInfo->isWritable( ));
+		$this->assertTrue( $this->XmlFile->isWritable( ));
 	}
 
 
@@ -154,7 +154,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsUnwritable( ) {
 
-		$this->assertFalse( $this->GifFileInfo->isWritable( ));
+		$this->assertFalse( $this->GifFile->isWritable( ));
 	}
 
 
@@ -165,7 +165,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsDirReadable( ) {
 
-		$this->assertTrue( $this->XmlFileInfo->isDirReadable( ));
+		$this->assertTrue( $this->XmlFile->isDirReadable( ));
 	}
 
 
@@ -176,7 +176,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsDirUnreadable( ) {
 
-		$this->assertFalse( $this->GifFileInfo->isDirReadable( ));
+		$this->assertFalse( $this->GifFile->isDirReadable( ));
 	}
 
 
@@ -187,7 +187,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsDirWritable( ) {
 
-		$this->assertTrue( $this->XmlFileInfo->isDirWritable( ));
+		$this->assertTrue( $this->XmlFile->isDirWritable( ));
 	}
 
 
@@ -198,7 +198,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsDirUnwritable( ) {
 
-		$this->assertFalse( $this->GifFileInfo->isDirWritable( ));
+		$this->assertFalse( $this->GifFile->isDirWritable( ));
 	}
 
 
@@ -211,7 +211,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			vfsStream::url( 'root/accessible/foo.xml' ),
-			$this->XmlFileInfo->path( )
+			$this->XmlFile->path( )
 		);
 	}
 
@@ -225,7 +225,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(
 			dirname( vfsStream::url( 'root/accessible/foo.xml' )),
-			$this->XmlFileInfo->dirPath( )
+			$this->XmlFile->dirPath( )
 		);
 	}
 
@@ -237,7 +237,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testType( ) {
 
-		$this->assertEquals( 'application/xml', $this->XmlFileInfo->type( ));
+		$this->assertEquals( 'application/xml', $this->XmlFile->type( ));
 	}
 
 
@@ -248,8 +248,8 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 
 	public function testForcedType( ) {
 
-		$FileInfo = new FileInfo( '', 'application/pdf' );
-		$this->assertEquals( 'application/pdf', $FileInfo->type( ));
+		$File = new File( '', 'application/pdf' );
+		$this->assertEquals( 'application/pdf', $File->type( ));
 	}
 
 
@@ -263,7 +263,7 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 		$caught = false;
 
 		try {
-			$this->GifFileInfo->type( );
+			$this->GifFile->type( );
 		} catch ( Exception $e ) {
 			$caught = true;
 		}
@@ -277,16 +277,16 @@ class FileInfoTest extends PHPUnit_Framework_TestCase {
 	 *
 	 */
 
-	public function testTypeWithoutFileInfo( ) {
+	public function testTypeWithoutFile( ) {
 
 		Runkit::requiredBy( $this );
 		Runkit::reimplementFunction( 'class_exists', '$className', 'return false;' );
 
-		$FileInfo = new FileInfo( vfsStream::url( 'root/accessible/empty' ));
+		$File = new File( vfsStream::url( 'root/accessible/empty' ));
 		$caught = false;
 
 		try {
-			$FileInfo->type( );
+			$File->type( );
 		} catch ( Exception $e ) {
 			$caught = true;
 		}

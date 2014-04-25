@@ -3,6 +3,8 @@
 namespace Transformist\Converter;
 
 use PHPUnit_Framework_TestCase;
+use Transformist\Document;
+use Transformist\File;
 
 define(
 	'IMAGEMAGICK_INPUT_FILE',
@@ -56,8 +58,8 @@ class ImageMagickTest extends PHPUnit_Framework_TestCase {
 
 		$this->ImageMagick = new ImageMagick( );
 		$this->Document = new Document(
-			new FileInfo( IMAGEMAGICK_INPUT_FILE ),
-			new FileInfo( IMAGEMAGICK_OUTPUT_FILE, 'image/png' )
+			new File( IMAGEMAGICK_INPUT_FILE ),
+			new File( IMAGEMAGICK_OUTPUT_FILE, 'image/png' )
 		);
 	}
 
