@@ -8,6 +8,10 @@ if ( !defined( 'DS')) {
 	define( 'DS', DIRECTORY_SEPARATOR );
 }
 
+if ( !defined( 'TRANSFORMIST_ROOT')) {
+	define( 'TRANSFORMIST_ROOT', dirname( __FILE__ ) . DS );
+}
+
 if ( !defined( 'TRANSFORMIST_TEST_ROOT' )) {
 	define( 'TRANSFORMIST_TEST_ROOT', dirname( __FILE__ ) . DS );
 }
@@ -19,21 +23,8 @@ if ( !defined( 'TRANSFORMIST_TEST_RESOURCE' )) {
 
 
 /**
- *	Loads Transformist boostrap.
- */
-
-require_once dirname( dirname( __FILE__ )) . DS . 'lib' . DS . 'bootstrap.php';
-
-
-
-/**
  *	Autoload
  */
-
-$ClassLoader = new Transformist\ClassLoader( TRANSFORMIST_TEST_ROOT );
-$ClassLoader->register( );
-
-// Composer
 
 require_once dirname( dirname( __FILE__ )) . DS . 'vendor' . DS . 'autoload.php';
 
