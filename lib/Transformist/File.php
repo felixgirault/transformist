@@ -272,10 +272,7 @@ class File {
 
 		// finfo can return MIME types in the form 'application/msword; charset=binary'.
 		// In this case, we keep the only part that matters to us: 'application/msword'.
-
-		$semicolon = strpos( $type, ';' );
-
-		if ( $semicolon !== false ) {
+		if ( strpos( $type, ';' ) !== false ) {
 			$type = array_shift( explode( ';', $type ));
 		}
 
