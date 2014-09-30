@@ -14,10 +14,11 @@
 	"licence": "MIT",
 	"homepage": "http://github.com/v-technologies/transformist",
 	"require": {
-		"php": ">=5.2.0"
+		"php": ">=5.4.0",
+		"pimple/pimple": "2.x"
 	},
 	"require-dev": {
-		"php": ">=5.3.0",
+		"php": ">=5.4.0",
 		"mikey179/vfsStream": ">=1.0.0"
 	},
 	"autoload": {
