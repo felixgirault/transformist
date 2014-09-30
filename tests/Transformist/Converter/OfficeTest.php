@@ -2,7 +2,7 @@
 
 namespace Transformist\Converter;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 
 define(
 	'OFFICE_INPUT_FILE',
@@ -22,7 +22,7 @@ define(
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class OfficeTest extends PHPUnit_Framework_TestCase {
+class OfficeTest extends TestCase {
 
 	/**
 	 *

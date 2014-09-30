@@ -2,7 +2,7 @@
 
 namespace Transformist\Converter;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use Transformist\Document;
 use Transformist\File;
 
@@ -24,7 +24,7 @@ define(
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class ImageMagickTest extends PHPUnit_Framework_TestCase {
+class ImageMagickTest extends TestCase {
 
 	/**
 	 *

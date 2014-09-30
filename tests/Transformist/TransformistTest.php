@@ -2,7 +2,7 @@
 
 namespace Transformist;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 use org\bovigo\vfs\vfsStream;
 
 
@@ -13,7 +13,7 @@ use org\bovigo\vfs\vfsStream;
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class TransformistTest extends PHPUnit_Framework_TestCase {
+class TransformistTest extends TestCase {
 
 	/**
 	 *

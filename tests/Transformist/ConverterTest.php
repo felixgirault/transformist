@@ -2,10 +2,7 @@
 
 namespace Transformist;
 
-use PHPUnit_Framework_TestCase;
-
-define( 'CONVERTER_INPUT_TYPE', 'application/xml' );
-define( 'CONVERTER_OUTPUT_TYPE', 'application/pdf' );
+use PHPUnit_Framework_TestCase as TestCase;
 
 
 
@@ -15,7 +12,7 @@ define( 'CONVERTER_OUTPUT_TYPE', 'application/pdf' );
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class ConverterTest extends PHPUnit_Framework_TestCase {
+class ConverterTest extends TestCase {
 
 	/**
 	 *

@@ -2,7 +2,7 @@
 
 namespace Transformist;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
 
 
 
@@ -29,7 +29,7 @@ class Runkit {
 	 *
 	 */
 
-	public static function requiredBy( PHPUnit_Framework_TestCase $Case ) {
+	public static function requiredBy( TestCase $Case ) {
 
 		if ( !Runkit::isEnabled( )) {
 			$Case->markTestSkipped( 'Runkit must be enabled' );
