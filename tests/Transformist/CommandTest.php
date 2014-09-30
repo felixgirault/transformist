@@ -2,7 +2,8 @@
 
 namespace Transformist;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_TestCase as TestCase;
+use Transformist\Command\Output;
 
 
 
@@ -12,7 +13,7 @@ use PHPUnit_Framework_TestCase;
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class CommandTest extends PHPUnit_Framework_TestCase {
+class CommandTest extends TestCase {
 
 	/**
 	 *
@@ -39,7 +40,7 @@ class CommandTest extends PHPUnit_Framework_TestCase {
 		$Command = new Command( 'ls' );
 
 		$this->assertEquals(
-			new CommandResult( 'ls', array( ), 0 ),
+			new Output( 'ls', array( ), 0 ),
 			$Command->execute( )
 		);
 	}
@@ -55,7 +56,7 @@ class CommandTest extends PHPUnit_Framework_TestCase {
 		$Command = new Command( 'ls' );
 
 		$this->assertEquals(
-			new CommandResult( 'ls -a -l', array( ), 0 ),
+			new Output( 'ls -a -l', array( ), 0 ),
 			$Command->execute( array( '-a', '-l' ))
 		);
 	}
@@ -71,7 +72,7 @@ class CommandTest extends PHPUnit_Framework_TestCase {
 		$Command = new Command( 'ls' );
 
 		$this->assertEquals(
-			new CommandResult( 'ls --tabsize 5', array( ), 0 ),
+			new Output( 'ls --tabsize 5', array( ), 0 ),
 			$Command->execute( array( '--tabsize' => 5 ))
 		);
 	}
@@ -87,7 +88,7 @@ class CommandTest extends PHPUnit_Framework_TestCase {
 		$Command = new Command( 'ls', '=' );
 
 		$this->assertEquals(
-			new CommandResult( 'ls --tabsize=5', array( ), 0 ),
+			new Output( 'ls --tabsize=5', array( ), 0 ),
 			$Command->execute( array( '--tabsize' => 5 ))
 		);
 	}

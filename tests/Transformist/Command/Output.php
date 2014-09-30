@@ -1,18 +1,18 @@
 <?php
 
-namespace Transformist;
+namespace Transformist\Command;
 
 use PHPUnit_Framework_TestCase;
 
 
 
 /**
- *	Test case for CommandResult.
+ *	Test case for Output.
  *
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class CommandResultTest extends PHPUnit_Framework_TestCase {
+class OutputTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 *
@@ -28,7 +28,7 @@ class CommandResultTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp( ) {
 
-		$this->Result = new CommandResult(
+		$this->Result = new Output(
 			'ls -l',
 			array(
 				'first line',

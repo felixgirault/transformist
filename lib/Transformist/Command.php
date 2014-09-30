@@ -2,14 +2,13 @@
 
 namespace Transformist;
 
-use Transformist\CommandResult;
+use Transformist\Command\Output;
 
 
 
 /**
  *	A simplistic interface to execute commands.
  *
- *	@package Transformist
  *	@author Félix Girault <felix@vtech.fr>
  */
 
@@ -62,9 +61,9 @@ class Command {
 	public function exists( ) {
 
 		$Command = new Command( 'command' );
-		$Result = $Command->execute( array( '-v', $this->_name ));
+		$Output = $Command->execute([ '-v' => $this->_name ]);
 
-		return $Result->isSuccess( );
+		return $Output->isSuccess( );
 	}
 
 
@@ -73,12 +72,31 @@ class Command {
 	 *	Executes the command with the given options.
 	 *
 	 *	@param array $options Command options.
-	 *	@return CommandResult Informations about the executed command.
+	 *	@return Output Informations about the executed command.
 	 */
 
 	public function execute( array $options = array( )) {
 
 		$command = $this->_name;
+		$command .= $this->_inline( $options );
+
+		@exec( $command . ' 2>&1', $output, $status );
+
+		return new Output( $command, $output, $status );
+	}
+
+
+
+	/**
+	 *
+	 *
+	 *	@param array $options Command options.
+	 *	@return string Arguments.
+	 */
+
+	protected function _inline( array $options ) {
+
+		$command = '';
 
 		foreach ( $options as $key => $value ) {
 			$command .= ' ';
@@ -90,8 +108,6 @@ class Command {
 			$command .= $value;
 		}
 
-		@exec( $command . ' 2>&1', $output, $status );
-
-		return new CommandResult( $command, $output, $status );
+		return $command;
 	}
 }

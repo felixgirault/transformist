@@ -1,17 +1,16 @@
 <?php
 
-namespace Transformist;
+namespace Transformist\Command;
 
 
 
 /**
  *	Holds informations about executed commands.
  *
- *	@package Transformist
  *	@author Félix Girault <felix@vtech.fr>
  */
 
-class CommandResult {
+class Output {
 
 	/**
 	 *	Executed command.
