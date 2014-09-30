@@ -10,7 +10,6 @@ use Transformist\Exception;
 /**
  *	Wraps some functionnalities of SplFile, and adds some pretty useful stuff.
  *
- *	@package Transformist
  *	@author Félix Girault <felix@vtech.fr>
  */
 
