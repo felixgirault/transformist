@@ -85,12 +85,10 @@ class TransformistTest extends TestCase {
 
 	public function testCanConvert( ) {
 
-		$Document = new Document(
+		$this->assertTrue( $this->Transformist->canConvert(
 			new File( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
 			new File( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
-		);
-
-		$this->assertTrue( $this->Transformist->canConvert( $Document ));
+		));
 	}
 
 
@@ -101,12 +99,10 @@ class TransformistTest extends TestCase {
 
 	public function testCantConvert( ) {
 
-		$Document = new Document(
+		$this->assertFalse( $this->Transformist->canConvert(
 			new File( 'foo', 'text/plain' ),
 			new File( 'bar', 'unknown' )
-		);
-
-		$this->assertFalse( $this->Transformist->canConvert( $Document ));
+		));
 	}
 
 
@@ -117,13 +113,10 @@ class TransformistTest extends TestCase {
 
 	public function testConvert( ) {
 
-		$Document = new Document(
+		$this->assertTrue( $this->Transformist->convert(
 			new File( vfsStream::url( 'root/readable.txt' ), 'text/plain' ),
 			new File( vfsStream::url( 'root/writable/converted.html' ), 'text/html' )
-		);
-
-		$this->Transformist->addDocument( $Document );
-		$this->assertTrue( $this->Transformist->run( ));
+		));
 	}
 
 
@@ -134,13 +127,10 @@ class TransformistTest extends TestCase {
 
 	public function testConvertFromUnreadableFile( ) {
 
-		$Document = new Document(
+		$this->assertFalse( $this->Transformist->convert(
 			new File( vfsStream::url( 'root/unreadable.txt' )),
 			new File( vfsStream::url( 'root/writable/foo.bar' ))
-		);
-
-		$this->Transformist->addDocument( $Document );
-		$this->assertFalse( $this->Transformist->run( ));
+		));
 	}
 
 
@@ -151,13 +141,10 @@ class TransformistTest extends TestCase {
 
 	public function testConvertToUnwritableDir( ) {
 
-		$Document = new Document(
+		$this->assertFalse( $this->Transformist->convert(
 			new File( vfsStream::url( 'root/readable.txt' )),
 			new File( vfsStream::url( 'root/unwritable/converted' ))
-		);
-
-		$this->Transformist->addDocument( $Document );
-		$this->assertFalse( $this->Transformist->run( ));
+		));
 	}
 
 
