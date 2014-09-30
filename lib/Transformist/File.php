@@ -205,6 +205,20 @@ class File {
 
 
 	/**
+	 *	Returns the file has the given MIME type.
+	 *
+	 *	@return string MIME type.
+	 *	@return boolean
+	 */
+
+	public function is( $type ) {
+
+		return ( $this->_type === $type );
+	}
+
+
+
+	/**
 	 *	Returns the MIME type of the file.
 	 *
 	 *	@return string MIME type.
