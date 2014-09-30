@@ -4,80 +4,56 @@ namespace Transformist\Converter;
 
 use Transformist\Converter;
 use Transformist\Command;
-use Transformist\Document;
+use Transformist\Exception;
 use Transformist\Registry;
+use Transformist\File;
 
 
 
 /**
  *	Converts documents using ImageMagick.
  *
- *	@package Transformist.Converter
  *	@author Félix Girault <felix@vtech.fr>
  */
 
 class ImageMagick extends Converter {
 
 	/**
-	 *	Tests if the convert command is available on the system.
-	 *
-	 *	@return boolean|sting True if the command exists, otherwise an error message.
+	 *	{@inheritDoc}
 	 */
 
-	public static function isRunnable( ) {
+	public function __construct( Map $Extensions ) {
 
-		$Convert = new Command( 'convert' );
+		parent::__construct( $Extensions );
 
-		return $Convert->exists( )
-			? true
-			: 'The convert command (from imagemagick) is not available.';
+		$this->_Conversions->setMulti([
+			'image/gif',
+			'image/jpeg',
+			'image/png',
+			'image/svg+xml',
+			'image/tiff'
+		]);
 	}
 
 
 
 	/**
-	 *	Returns an array of conversions the converter can handle.
+	 *	Tests if the convert command is available on the system.
 	 *
-	 *	array( 'input/type' => 'output/type' )
-	 *	array( 'input/type' => array( 'output/type1', 'output/type2' ))
-	 *
-	 *	@return array Array of supported types.
+	 *	@return boolean True if the command exists.
 	 */
 
-	public static function conversions( ) {
+	public function test( ) {
 
-		return array(
-			'image/gif' => array(
-				'image/jpeg',
-				'image/png',
-				'image/svg+xml',
-				'image/tiff'
-			),
-			'image/jpeg' => array(
-				'image/gif',
-				'image/png',
-				'image/svg+xml',
-				'image/tiff'
-			),
-			'image/png' => array(
-				'image/gif',
-				'image/jpeg',
-				'image/svg+xml',
-				'image/tiff'
-			),
-			'image/svg+xml' => array(
-				'image/gif',
-				'image/jpeg',
-				'image/png',
-				'image/tiff'
-			),
-			'image/tiff' => array(
-				'image/gif',
-				'image/jpeg',
-				'image/png',
-				'image/svg+xml'
-			)
-		);
+		$Convert = new Command( 'convert' );
+
+		if ( !$Convert->exists( )) {
+			throw new Exception(
+				'The convert command (from imagemagick) is not available.'
+			);
+		}
+
+		return true;
 	}
 
 
@@ -88,27 +64,30 @@ class ImageMagick extends Converter {
 	 *	@param Document $Document Document to convert.
 	 */
 
-	public function convert( Document $Document ) {
-
-		$Input =& $Document->input( );
-		$input = Registry::extension( $Input->type( ));
-
-		if ( !empty( $input )) {
-			$input .= ':';
-		}
-
-		$input .= $Input->path( );
-
-		$Output =& $Document->output( );
-		$output = Registry::extension( $Output->type( ));
-
-		if ( !empty( $output )) {
-			$output .= ':';
-		}
-
-		$output .= $Output->path( );
+	public function convert( File $Input, File $Output ) {
 
 		$Convert = new Command( 'convert' );
-		$Convert->execute( array( $input, $output ));
+
+		$Convert->execute([
+			$this->_stringify( $input ),
+			$this->_stringify( $output )
+		]);
+	}
+
+
+
+	/**
+	 *
+	 */
+
+	protected function _stringify( File $File ) {
+
+		$string = $this->Extensions->get( $File->type( ));
+
+		if ( !empty( $string )) {
+			$string .= ':';
+		}
+
+		return $string . $File->path( );
 	}
 }

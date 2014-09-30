@@ -28,7 +28,7 @@ class ConverterTest extends TestCase {
 
 	public function setUp( ) {
 
-		$this->Converter = new ConcreteConverter( );
+		$this->Converter = new ConverterImplementation( );
 	}
 
 
@@ -37,20 +37,9 @@ class ConverterTest extends TestCase {
 	 *
 	 */
 
-	public function testInputTypes( ) {
-
-		$this->assertEquals( array( CONVERTER_INPUT_TYPE ), $this->Converter->inputTypes( ));
-	}
+	public function testCanConvert( ) {
 
 
-
-	/**
-	 *
-	 */
-
-	public function testOutputType( ) {
-
-		$this->assertEquals( CONVERTER_OUTPUT_TYPE, $this->Converter->outputType( ));
 	}
 }
 
@@ -60,38 +49,12 @@ class ConverterTest extends TestCase {
  *
  */
 
-class ConcreteConverter extends Converter {
-
-	/**
-	 *	Returns the type of files that the converter accepts.
-	 *
-	 *	@return array Types.
-	 */
-
-	public static function inputTypes( ) {
-
-		return array( CONVERTER_INPUT_TYPE );
-	}
-
-
-
-	/**
-	 *	Returns the type of files that the converter produces.
-	 *
-	 *	@return string Type.
-	 */
-
-	public static function outputType( ) {
-
-		return CONVERTER_OUTPUT_TYPE;
-	}
-
-
+class ConverterImplementation extends Converter {
 
 	/**
 	 *
 	 */
 
-	public function convert( Document $Document ) { }
+	public function convert( File $Input, File $Output ) { }
 
 }

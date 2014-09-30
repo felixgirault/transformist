@@ -2,18 +2,50 @@
 
 namespace Transformist;
 
-use Transformist\Document;
+use Transformist\Map;
+use Transformist\File;
 
 
 
 /**
  *	The base class for a Converter.
  *
- *	@package Transformist
  *	@author Félix Girault <felix@vtech.fr>
  */
 
 abstract class Converter {
+
+	/**
+	 *	Maps mime types to extensions.
+	 *
+	 *	@var Map
+	 */
+
+	protected $_Extensions = null;
+
+
+
+	/**
+	 *	Maps input mime types to output ones.
+	 *
+	 *	@var Map
+	 */
+
+	protected $_Conversions = null;
+
+
+
+	/**
+	 *
+	 */
+
+	public function __construct( Map $Extensions ) {
+
+		$this->_Extensions = $Extensions;
+		$this->_Conversions = new Map( );
+	}
+
+
 
 	/**
 	 *	Runs some tests to determine if the converter can run properly.
@@ -22,7 +54,7 @@ abstract class Converter {
 	 *	@return boolean True if everything went good, otherwise false.
 	 */
 
-	public static function isRunnable( ) {
+	public function test( ) {
 
 		return true;
 	}
@@ -30,17 +62,29 @@ abstract class Converter {
 
 
 	/**
-	 *	Returns an array of conversions the converter can handle.
+	 *	Returns a map of handled conversions.
 	 *
-	 *	array( 'input/type' => 'output/type' )
-	 *	array( 'input/type' => array( 'output/type1', 'output/type2' ))
-	 *
-	 *	@return array Array of supported types.
+	 *	@return Map Map.
 	 */
 
-	public static function conversions( ) {
+	public function conversions( ) {
 
-		return array( );
+		return $this->_Conversions;
+	}
+
+
+
+	/**
+	 *	Tells if the converter can convert an input file to an output file.
+	 *
+	 *	@param File $Input Input file.
+	 *	@param File $Output Output file.
+	 *	@return boolean
+	 */
+
+	public function canConvert( File $Input, File $Output ) {
+
+		return $this->_Conversions->has( $Input->type( ), $Output->type( ));
 	}
 
 
@@ -48,9 +92,10 @@ abstract class Converter {
 	/**
 	 *	Converts the given document.
 	 *
-	 *	@param Document $Document Document to convert.
+	 *	@param File $Input Input file.
+	 *	@param File $Output Output file.
 	 */
 
-	abstract public function convert( Document $Document );
+	abstract public function convert( File $Input, File $Output );
 
 }

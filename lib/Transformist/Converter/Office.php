@@ -4,7 +4,7 @@ namespace Transformist\Converter;
 
 use Transformist\Converter;
 use Transformist\Command;
-use Transformist\Document;
+use Transformist\Exception;
 use Transformist\Registry;
 
 
@@ -14,27 +14,43 @@ use Transformist\Registry;
  *	This converter relies on the OpenOffice/LibreOffice suite, which must be
  *	installed on the system for the conversion to be done.
  *
- *	@package Transformist.Converter
  *	@author Félix Girault <felix@vtech.fr>
  */
 
 class Office extends Converter {
 
 	/**
-	 *	Tests if the unoconv command is available on the system.
-	 *
-	 *	@return boolean|sting True if the command exists, otherwise an error message.
+	 *	{@inheritDoc}
 	 */
 
-	public static function isRunnable( ) {
+	public function __construct( Map $Extensions ) {
+
+		parent::__construct( $Extensions );
+
+		$this->_Conversions->set( 'application/pdf', 'application/pdfa' );
+		$this->_Conversions->set( 'application/msword', [
+			'application/pdf',
+			'application/pdfa'
+		]);
+	}
+
+
+
+	/**
+	 *	Tests if the unoconv command is available on the system.
+	 *
+	 *	@return boolean True if the command exists.
+	 */
+
+	public function test( ) {
 
 		$Unoconv = new Command( 'unoconv' );
 
 		if ( !$Unoconv->exists( )) {
-			return 'The unoconv command is not available.';
+			throw new Exception( 'The unoconv command is not available.' );
 		}
 
-		$result = $Unoconv->execute( array( '--version' ));
+		$result = $Unoconv->execute([ '--version' ]);
 		$version = 0;
 
 		foreach ( $result->output( ) as $line ) {
@@ -45,32 +61,10 @@ class Office extends Converter {
 		}
 
 		if ( $version < 0.6 ) {
-			return 'unoconv version must be 0.6 or higher';
+			throw new Exception( 'unoconv version must be 0.6 or higher.' );
 		}
 
 		return true;
-	}
-
-
-
-	/**
-	 *	Returns an array of conversions the converter can handle.
-	 *
-	 *	array( 'input/type' => 'output/type' )
-	 *	array( 'input/type' => array( 'output/type1', 'output/type2' ))
-	 *
-	 *	@return array Array of supported types.
-	 */
-
-	public static function conversions( ) {
-
-		return array(
-			'application/msword' => array(
-				'application/pdf',
-				'application/pdfa'
-			),
-			'application/pdf' => 'application/pdfa'
-		);
 	}
 
 
@@ -81,58 +75,53 @@ class Office extends Converter {
 	 *	@param Document $Document Document to convert.
 	 */
 
-	public function convert( Document $Document ) {
-
-		$Input =& $Document->input( );
-		$Output =& $Document->output( );
-
-		// The office command doesn't allow us to specify an output file name.
-		// So here's the trick: we're creating a link to the input file, named
-		// as the desired output file name, with a unique extension to ensure
-		// that the link file name doesn't exists.
-		// The we will pass the symlink to the office command, which will use
-		// the link name as output file name.
+	public function convert( File $Input, File $Output ) {
 
 		$inputPath = $Input->path( );
+		$workaround = ( $Input->baseName( ) !== $Output->baseName( ));
 
-		if ( $Input->baseName( ) !== $Output->baseName( )) {
+		if ( $workaround ) {
+			// The office command doesn't allow us to specify an output file
+			// name.
+			// So here's the trick: we're creating a link to the input file,
+			// named as the desired output file name, with a unique extension
+			// to ensure that the link file name doesn't exists.
+			// The we will pass the symlink to the office command, which will
+			// use the link name as output file name.
 			$linkPath = $Output->dirPath( )
 				. DIRECTORY_SEPARATOR
 				. $Output->baseName( )
 				. uniqid( '.workaround-' );
 
-			if ( symlink( $inputPath, $linkPath )) {
-				$inputPath = $linkPath;
-			} else {
-				return;
+			if ( !symlink( $inputPath, $linkPath )) {
+				throw new Exception( 'Unable to create a symlink.' );
 			}
+
+			$inputPath = $linkPath;
 		}
 
-		//
+		$arguments = [ ];
 
-		$arguments = array( );
-
-		if ( $Output->type( ) == 'application/pdfa' ) {
-			$arguments['-e'] = 'SelectPdfVersion=1';
+		if ( $Output->is( 'application/pdfa' )) {
+			$arguments['--export'] = 'SelectPdfVersion=1';
 		}
 
-		$format = Registry::extension( $Output->type( ));
+		$format = $this->Extensions->get( $Output->type( ));
 
 		if ( $format ) {
-			$arguments['-f'] = $format;
+			$arguments['--format'] = $format;
 		}
 
-		$arguments += array(
+		$arguments += [
 			'--output' => $Output->dirPath( ),
 			$inputPath
-		);
+		];
 
 		$Unoconv = new Command( 'unoconv' );
-		$R = $Unoconv->execute( $arguments );
-
-		// We don't need the symlink anymore.
+		$Unoconv->execute( $arguments );
 
 		if ( $workaround ) {
+			// We don't need the symlink anymore.
 			unlink( $inputPath );
 		}
 	}

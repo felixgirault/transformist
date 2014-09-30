@@ -48,19 +48,14 @@ class ImageMagickTest extends TestCase {
 
 	public function setUp( ) {
 
-		$runnable = ImageMagick::isRunnable( );
+		$this->ImageMagick = new ImageMagick( );
+		$runnable = $this->ImageMagick->isRunnable( );
 
 		if ( $runnable !== true ) {
 			$this->markTestSkipped( $runnable );
 		}
 
 		cleanDirectory( dirname( IMAGEMAGICK_OUTPUT_FILE ));
-
-		$this->ImageMagick = new ImageMagick( );
-		$this->Document = new Document(
-			new File( IMAGEMAGICK_INPUT_FILE ),
-			new File( IMAGEMAGICK_OUTPUT_FILE, 'image/png' )
-		);
 	}
 
 
@@ -71,7 +66,11 @@ class ImageMagickTest extends TestCase {
 
 	public function testConvert( ) {
 
-		$this->ImageMagick->convert( $this->Document );
-		$this->assertTrue( $this->Document->isConverted( ));
+		$Input = new File( IMAGEMAGICK_INPUT_FILE );
+		$Output = new File( IMAGEMAGICK_OUTPUT_FILE, 'image/png' );
+
+		$this->assertFalse( $Output->exists( ));
+		$this->ImageMagick->convert( $Input, $Output );
+		$this->assertTrue( $Output->exists( ));
 	}
 }
